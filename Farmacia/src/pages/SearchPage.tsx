@@ -1,26 +1,23 @@
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
 
-// api de medicamentos https://webapis.cancer.gov/glossary/v1/Terms/Cancer.gov/Patient/es/:name
-// API de navegacion de medicamentos: https://webapis.cancer.gov/glossary/v1/Terms/expand/Cancer.gov/Patient/es/B?size=5
-// API de buscador de medicamentos https://webapis.cancer.gov/glossary/v1/Terms/search/Cancer.gov/Patient/es/:buscar?matchType=Begins&size=5
-
 const SearchPage = () => {
   const [medicamentos, setMedicamentos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
 
   const buscarMedicamento = (nombre: string) => {
-    let formatName = nombre.replaceAll(" ", "-");
+    let formatName = nombre?.replaceAll(" ", "-");
 
-    fetch(
-      `https://webapis.cancer.gov/glossary/v1/Terms/search/Cancer.gov/Patient/es/${formatName
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")}?matchType=Begins&size=10`
-    )
+    const url = import.meta.env.VITE_BASE_URL;
+
+    
+      console.log(url)
+    
+    fetch(`${url}name/${formatName?.normalize("NFD")?.replace(/[\u0300-\u036f]/g, "")}?matchType=Begins&size=10`)
       .then((response) => response.json())
       .then((data) =>
         setMedicamentos(
-          data?.results?.map((item: { termName: string }) => item?.termName)
+          data?.map((item: { termName: string }) => item)
         )
       )
       .catch((error) => console.error("Error fetching data:", error));
@@ -45,14 +42,14 @@ const SearchPage = () => {
           />
 
           <ul className="list-medicaments">
-            {medicamentos.map((medicamento: string) => (
+            {medicamentos?.map((medicamento: string) => (
               <li key={medicamento}>
                 <Link
                   to={`medicamentos/${medicamento
                     ?.toLowerCase()
-                    .replaceAll(" ", "-")
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "")}`}
+                    ?.replaceAll(" ", "-")
+                    ?.normalize("NFD")
+                    ?.replace(/[\u0300-\u036f]/g, "")}`}
                 >
                   {medicamento}
                 </Link>
