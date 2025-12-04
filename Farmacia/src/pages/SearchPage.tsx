@@ -10,9 +10,6 @@ const SearchPage = () => {
 
     const url = import.meta.env.VITE_BASE_URL;
 
-    
-      console.log(url)
-    
     fetch(`${url}name/${formatName?.normalize("NFD")?.replace(/[\u0300-\u036f]/g, "")}?matchType=Begins&size=10`)
       .then((response) => response.json())
       .then((data) =>
