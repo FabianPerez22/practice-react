@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  mariadb:
+    image: mariadb-local
+    container_name: mariadb-compose
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./migrations:/docker-entrypoint-initdb.d

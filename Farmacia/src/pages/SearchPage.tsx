@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
+import Header from "./Header";
 
 const SearchPage = () => {
   const [medicamentos, setMedicamentos] = useState([]);
@@ -23,6 +24,7 @@ const SearchPage = () => {
   return (
     <>
       <Outlet />
+      <Header searchs={true} />
       <div className="container-list">
         <div className="list-container">
           <h1>
@@ -40,17 +42,23 @@ const SearchPage = () => {
 
           <ul className="list-medicaments">
             {medicamentos?.map((medicamento: string) => (
-              <li key={medicamento}>
-                <Link
-                  to={`medicamentos/${medicamento
-                    ?.toLowerCase()
-                    ?.replaceAll(" ", "-")
-                    ?.normalize("NFD")
-                    ?.replace(/[\u0300-\u036f]/g, "")}`}
-                >
-                  {medicamento}
-                </Link>
-              </li>
+              <div className="searchContainers">
+              <button key={medicamento} className="buttons searchButton">+</button>
+
+                <li key={medicamento}>
+
+                  <Link
+                    to={`medicamentos/${medicamento
+                      ?.toLowerCase()
+                      ?.replaceAll(" ", "-")
+                      ?.normalize("NFD")
+                      ?.replace(/[\u0300-\u036f]/g, "")}`}
+                  >
+                    {medicamento}
+                  </Link>
+                </li>
+              </div>
+
             ))}
           </ul>
         </div>
