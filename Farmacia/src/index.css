@@ -170,3 +170,17 @@ nav a.active{
   gap: 15px;
   align-items: center;
 }
+
+.errorMessages {
+  color: red;
+  background-color: whitesmoke;
+  border-radius: 8px;
+  padding: 2px;
+  
+  display: none;
+  opacity: 0;
+  transition:
+    opacity 1s,
+    display 1s allow-discrete;
+
+}

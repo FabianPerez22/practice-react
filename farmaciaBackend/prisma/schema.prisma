@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model medicament {
+  id          Int     @id @default(autoincrement())
+  name        String? @db.VarChar(255)
+  description String? @db.Text
+  users       users[]
+}
+
+model users {
+  id            Int         @id @default(autoincrement())
+  name          String?     @db.VarChar(255)
+  email         String?     @unique @db.VarChar(255)
+  password      String?     @db.VarChar(255)
+  id_medicament Int?
+  medicament    medicament? @relation(fields: [id_medicament], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_users_medicament")
+
+  @@index([id_medicament], map: "fk_users_medicament")
+}
