@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
 import { data } from "react-router-dom";
+import api from "../../api/axios";
 
 interface AuthState {
   user: UserWithId | null;
@@ -24,7 +24,32 @@ const initialState: AuthState = {
   error: null,
 };
 
-//thunk
+api.defaults.withCredentials = true;
+
+export const getMe = createAsyncThunk(
+  "auth/me",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await api.get("/auth/me");
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(null);
+    }
+  }
+);
+
+export const logouts = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await api.get("/auth/logout");
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(null);
+    }
+  }
+);
+
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (
@@ -32,13 +57,10 @@ export const loginUser = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const res = await axios.post(
-        "http://localhost:4323/auth/login",
-        credential
-      );
+      const res = await api.post("/auth/login", credential);
       return res.data;
     } catch (err: any) {
-      return rejectWithValue(err?.response?.data?.error || "Error de login");
+      return rejectWithValue(err?.response?.data?.message);
     }
   }
 );
@@ -50,13 +72,12 @@ export const registerUser = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const res2 = await axios.post(
-        "http://localhost:4323/auth/register",
-        credential
-      );
+      const res2 = await api.post("/auth/register", credential);
       return res2.data;
-    } catch(err: any) {
-      return rejectWithValue(err?.response?.data?.error || "Error del registro")
+    } catch (err: any) {
+      return rejectWithValue(
+        err?.response?.data?.message || "Error del registro"
+      );
     }
   }
 );
@@ -90,6 +111,17 @@ export const authSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(getMe.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getMe.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(getMe.rejected, (state) => {
+        state.loading = false;
+        state.user = null;
       });
   },
 });

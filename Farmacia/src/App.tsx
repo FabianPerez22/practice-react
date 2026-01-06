@@ -6,23 +6,36 @@ import Home from "./pages/Home.js";
 import PageNotFound from "./pages/PageNotFound.jsx"
 import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPages from "./pages/registerPages.tsx";
-import { useAppSelector } from "./aplication/hooks.ts";
+import { useAppDispatch, useAppSelector } from "./aplication/hooks.ts";
 import { useEffect } from "react";
+import { getMe, logout } from "./app/users/auth.ts";
 
 
 function App() {
   const authState = useAppSelector((state) => state.auth)
-  const navigate = useNavigate()
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if(!authState?.user){
-      navigate("/")
-    }
-  }, [authState.user])
+    dispatch(getMe());
+  }, []);
+
+  useEffect(() => {
+
+    const handler = () => {
+      dispatch(logout());
+      navigate("/");
+    };
+
+    window.addEventListener("unauthorized", handler);
+
+    return () => {
+      window.removeEventListener("unauthorized", handler);
+    };
+  }, []);
 
   return (
     <>
-
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<Home />} />

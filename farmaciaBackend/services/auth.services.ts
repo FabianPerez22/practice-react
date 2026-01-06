@@ -2,6 +2,16 @@ import { prisma } from "../prisma/client.ts";
 import bcrypt from "bcrypt";
 
 export class AuthService {
+  static async validates(email: string) {
+    const users = await prisma.users.findFirst({
+      where: { email: email },
+    });
+
+    if (!users) return null;
+
+    return users;
+  }
+
   static async login(email: string, password: string) {
     const user = await prisma.users.findUnique({
       where: { email },

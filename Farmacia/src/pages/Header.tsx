@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../aplication/hooks';
-import { logout } from '../app/users/auth';
+import { logout, logouts } from '../app/users/auth';
 
 interface HeaderProps {
     searchs: boolean;
@@ -11,6 +11,7 @@ const Header = ({ searchs }: HeaderProps) => {
     const authState = useAppSelector((state) => state.auth)
 
     const handleLogout = () => {
+        dispatch(logouts())
         dispatch(logout())
     }
 

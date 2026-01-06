@@ -117,6 +117,8 @@ nav a.active{
   margin-top: 10%;
   border-radius: 8px;
   padding: 80px;
+  height: 125px;
+  width: 400px;
 
 }
 
@@ -182,5 +184,11 @@ nav a.active{
   transition:
     opacity 1s,
     display 1s allow-discrete;
+}
 
+.backgroundStyles {
+  background: linear-gradient(5deg, rgba(228, 228, 228, 0.474) 43%, #021b5ec4 43.1%);
+  display: flex;
+  justify-content: center;
+  height: 100vh;
 }
