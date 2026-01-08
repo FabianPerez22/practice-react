@@ -4,8 +4,8 @@ POST http://localhost:4323/auth/login
 Content-Type: application/json
 
 {
-  "email": "pedro@gmail.com",
-  "password": "12345"
+  "email": "x",
+  "password": "x"
 }
 
 ### Register
@@ -18,3 +18,32 @@ Content-Type: application/json
   "email": "pachecox@gmail.com",
   "password": "pachecox123!"
 }
+
+
+### register an medicament
+POST http://localhost:4323/farmacia/adding
+Content-Type: application/json
+
+{
+  "name": "XELOX",
+  "userId": 10
+}
+
+### get all registers 
+POST http://localhost:4323/farmacia/registers
+Content-Type: application/json
+
+{
+  "userId": 10
+}
+
+
+
+### removing registr by id 
+DELETE  http://localhost:4323/farmacia/removing
+Content-Type: application/json
+
+{
+  "id": 1
+}
+

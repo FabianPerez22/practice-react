@@ -1,25 +1,22 @@
 import { NavLink } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../aplication/hooks';
-import { logout, logouts } from '../app/users/auth';
+import useSelectState from '../hooks/useSelectState';
+import useAuth from '../hooks/useAuth';
 
 interface HeaderProps {
     searchs: boolean;
 }
 
 const Header = ({ searchs }: HeaderProps) => {
-    const dispatch = useAppDispatch()
-    const authState = useAppSelector((state) => state.auth)
+    const { auth } = useSelectState()
+    const { userLogout } = useAuth()
 
-    const handleLogout = () => {
-        dispatch(logouts())
-        dispatch(logout())
-    }
-
+    const handleLogout = () => userLogout()
+    
     return (
         <>
             <header>
                 <h1>Farmacia App</h1>
-                {authState.user?.name ? <h4>Hola, {authState.user?.name ?? "sin sesion abierta"}</h4> : ""}
+                {auth.user?.name ? <h4>Hola, {auth.user?.name ?? "sin sesion abierta"}</h4> : ""}
                 {searchs ? <nav> <NavLink to="/home">Inicio</NavLink> <NavLink to="/search">Buscador</NavLink> <NavLink to="/" onClick={handleLogout}>Cerrar sesion</NavLink> </nav> : ""}
             </header>
         </>

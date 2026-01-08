@@ -1,14 +1,14 @@
-import Header from './Header'
-import { useAppDispatch, useAppSelector } from '../aplication/hooks'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import Message from '../components/Message';
 import { loginUser } from '../app/users/auth';
+import useSelectState from '../hooks/useSelectState';
+import useAuth from '../hooks/useAuth';
 
 function LoginPage() {
-    const authState = useAppSelector((state) => state.auth)
+    const { auth } = useSelectState()
+    const { login } = useAuth()
+
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,8 +16,8 @@ function LoginPage() {
     const handleLogin = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
-        const result = await dispatch(loginUser({ email, password }))
-        if (loginUser.fulfilled.match(result)) {
+        const result = login(email, password)
+        if (loginUser.fulfilled.match((await result))) {
             navigate("/home")
         }
     }
@@ -30,7 +30,7 @@ function LoginPage() {
                     <input className='inputsRegister' type="text" placeholder='Correo' value={email} onChange={e => setEmail(e.target.value)} />
                     <input className='inputsRegister' type="password" placeholder='Contraseña' value={password} onChange={e => setPassword(e.target.value)} />
                     <button className='buttons' onClick={handleLogin}>Iniciar sesion</button>
-                    {authState.error && <p style={{color: "white", position: "absolute", bottom: "35px"}}>{authState.error}</p>}
+                    {auth.error && <p style={{ color: "white", position: "absolute", bottom: "35px" }}>{auth.error}</p>}
                     <Link to="/register" style={{ position: "absolute", bottom: 6, color: "white" }}>No tienes cuenta? Registrate!</Link>
                 </form>
             </div>

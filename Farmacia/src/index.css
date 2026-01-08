@@ -27,11 +27,9 @@ header {
 
 .container-list{
   width: fit-content;
-  height: 86.5vh;
-  padding-right: 15px;
-  padding-top: 15px;
+  height: auto;
+  padding: 15px;
   background-color: rgba(27, 67, 153, 0.295);
-  
 }
 
 .list-container{
@@ -141,18 +139,21 @@ nav a.active{
 
 .medicamentsContainer {
  display: grid;
+gap: 25px;
  grid-template-columns: 1fr 1fr 1fr;
  grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
 .medicamentsDatabase {
   width: 500px;
-  padding: 14px;
+  padding: 24px;
   height: 150px;
   justify-self: center;
   align-self: center;
   margin-top: 1%;
   justify-items: center;
+  text-overflow: ellipsis; 
+  overflow: none;
 }
 
 .closeButton {
@@ -164,6 +165,12 @@ nav a.active{
 .searchButton{
   width: fit-content;
   height: fit-content;
+  transition: all 1s;
+}
+
+.searchButton:hover{
+  background-color: rgb(122, 202, 122);
+  scale: 1.2;
 }
 
 .searchContainers {
@@ -173,17 +180,16 @@ nav a.active{
   align-items: center;
 }
 
-.errorMessages {
+.alertMessages {
   color: red;
-  background-color: whitesmoke;
+  background-color: rgb(48, 177, 76);
   border-radius: 8px;
   padding: 2px;
-  
-  display: none;
-  opacity: 0;
-  transition:
-    opacity 1s,
-    display 1s allow-discrete;
+  position: absolute;
+  place-self: center;
+  bottom: 25px;
+  right: 25px;
+  transition: all 4s
 }
 
 .backgroundStyles {

@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { data } from "react-router-dom";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../api/axios";
 
 interface AuthState {
@@ -15,7 +14,7 @@ export interface User {
 }
 
 export interface UserWithId extends User {
-  id: string;
+  id: number;
 }
 
 const initialState: AuthState = {

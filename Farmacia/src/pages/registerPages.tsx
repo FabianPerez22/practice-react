@@ -1,22 +1,24 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../aplication/hooks'
 import { registerUser } from '../app/users/auth'
+import useSelectState from '../hooks/useSelectState'
+import useAuth from '../hooks/useAuth'
 
 const registerPages = () => {
-    const authState = useAppSelector((state) => state.auth)
     const [email, setEmail] = useState("")
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
 
-    const dispatch = useAppDispatch()
+    const { auth } = useSelectState()
+    const { register } = useAuth()
+
     const navigate = useNavigate()
 
     const handleRegister = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
-        const result = await dispatch(registerUser({ name, email, password }))
-        if (registerUser.fulfilled.match(result)) {
+        const result = register(name, email, password)
+        if (registerUser.fulfilled.match((await result))) {
             navigate("/")
         }
     }
@@ -30,7 +32,7 @@ const registerPages = () => {
                     <input className='inputsRegister' type="text" placeholder='Correo' value={email} onChange={e => setEmail(e.target.value)} />
                     <input className='inputsRegister' type="password" placeholder='Contraseña' value={password} onChange={e => setPassword(e.target.value)} />
                     <button className='buttons' onClick={handleRegister}>Registrarse</button>
-                    {authState.error && <p style={{color: "white", position: "absolute", bottom: "35px"}}>{authState.error}</p>}
+                    {auth.error && <p style={{ color: "white", position: "absolute", bottom: "35px" }}>{auth.error}</p>}
                     <Link to="/" style={{ position: "absolute", bottom: 6, color: "white" }}> tienes cuenta? Inicia sesion!</Link>
                 </form>
             </div>

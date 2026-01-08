@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Medicaments {
-  id: string;
   name: string;
   description: string;
 }
 
-const initialState: Medicaments[] = [
+export interface MedicamentsWithId extends Medicaments {
+  id: string;
+}
+
+const initialState: MedicamentsWithId[] = [
   {
     id: "1",
     name: "XELOX",
