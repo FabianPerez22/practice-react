@@ -4,8 +4,8 @@ POST http://localhost:4323/auth/login
 Content-Type: application/json
 
 {
-  "email": "x",
-  "password": "x"
+  "email": "carlo@gmail.com",
+  "password": "123"
 }
 
 ### Register
@@ -26,7 +26,7 @@ Content-Type: application/json
 
 {
   "name": "XELOX",
-  "userId": 10
+  "userId": 3
 }
 
 ### get all registers 
@@ -34,7 +34,7 @@ POST http://localhost:4323/farmacia/registers
 Content-Type: application/json
 
 {
-  "userId": 10
+  "userId": 3
 }
 
 
@@ -44,6 +44,6 @@ DELETE  http://localhost:4323/farmacia/removing
 Content-Type: application/json
 
 {
-  "id": 1
+  "id": 3
 }
 

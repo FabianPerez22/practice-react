@@ -13,7 +13,7 @@ export class AuthService {
   }
 
   static async login(email: string, password: string) {
-    const user = await prisma.users.findUnique({
+    const user = await prisma.users.findFirst({
       where: { email },
       select: {
         id: true,
@@ -41,6 +41,7 @@ export class AuthService {
         name: name,
         email: email,
         password: hashedPassword,
+        id_medicament: 0
       },
     });
 

@@ -1,5 +1,4 @@
 import api from "../../api/axios";
-import { URLBACKEND } from "../../CONST/Consts";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface Medicaments {
@@ -35,7 +34,7 @@ export const searchMedicaments = createAsyncThunk(
   "medicaments/searchs",
   async (name: { name: string }, { rejectWithValue }) => {
     try {
-      const res = await api.get(`${URLBACKEND}description/${name}`);
+      const res = await api.get(`farmacia/description/${name}`);
       const dat = res.data[0];
 
       const formatData = {
@@ -56,7 +55,7 @@ export const getRegisters = createAsyncThunk(
   "medicaments/getRegisters",
   async (data: { userId: number }, { rejectWithValue }) => {
     try {
-      const results = await api.post(`${URLBACKEND}registers`, data);
+      const results = await api.post(`farmacia/registers`, data);
       return results.data;
     } catch (err: any) {
       return rejectWithValue(
@@ -70,7 +69,7 @@ export const addingMedicament = createAsyncThunk(
   "medicaments/add",
   async (data: { name: string; userId: number }, { rejectWithValue }) => {
     try {
-      const results = await api.post(`${URLBACKEND}adding`, data);
+      const results = await api.post(`farmacia/adding`, data);
       return results.data;
     } catch (err: any) {
       return rejectWithValue(
@@ -84,7 +83,7 @@ export const removingRegister = createAsyncThunk(
   "medicaments/remove",
   async (data: { id: number }, { rejectWithValue }) => {
     try {
-      const results = await api.delete(`${URLBACKEND}removing`, { data });
+      const results = await api.delete(`farmacia/removing`, { data });
       console.log(results.data);
       return results.data;
     } catch (err: any) {

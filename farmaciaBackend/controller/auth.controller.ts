@@ -80,7 +80,7 @@ export class AuthController {
 
       return res.json(user);
     } catch (err: any) {
-      return res.status(401).json({ message: "Error del sistema" });
+      return res.status(500).json({ message: "Error del sistema" });
     }
   }
 }

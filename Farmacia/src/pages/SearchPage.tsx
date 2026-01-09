@@ -15,14 +15,14 @@ const SearchPage = () => {
 
   const buscarMedicamento = (nombre: string) => {
     let formatName = nombre?.replaceAll(" ", "-");
-    fetch(`${URLBACKEND}name/${formatName?.normalize("NFD")?.replace(/[\u0300-\u036f]/g, "")}?matchType=Begins&size=10`)
+    fetch(`${URLBACKEND}farmacia/name/${formatName?.normalize("NFD")?.replace(/[\u0300-\u036f]/g, "")}?matchType=Begins&size=10`)
       .then((response) => response.json())
       .then((data) =>
         setMedicamentos(
           data?.map((item: { termName: string }) => item)
         )
       )
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) => console.error("Error fetching data:", error ));
   };
 
   return (
