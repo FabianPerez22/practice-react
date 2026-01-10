@@ -139,15 +139,34 @@ nav a.active{
 
 .medicamentsContainer {
  display: grid;
-gap: 25px;
+ padding: 15px;
+ gap: 25px;
  grid-template-columns: 1fr 1fr 1fr;
  grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
+@media (max-width: 900px) {
+  .medicamentsContainer {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  }
+
+  .medicamentsDatabase {
+    width: 500px !important;
+    height: fit-content !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .medicamentsDatabase {
+    height: auto !important;
+  }
+}
+
 .medicamentsDatabase {
-  width: 500px;
+  width: auto;
   padding: 24px;
-  height: 150px;
+  height: 250px;
   justify-self: center;
   align-self: center;
   margin-top: 1%;

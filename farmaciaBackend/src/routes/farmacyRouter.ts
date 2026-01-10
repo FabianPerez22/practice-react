@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { farmacyControllers } from "../controller/farmayController.js";
+import { farmacyControllers } from "../controller/farmayController";
 
 export const routesFarmacy = Router();
 

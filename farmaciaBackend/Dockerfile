@@ -1,13 +1,15 @@
 FROM node:20-alpine
 
-WORKDIR /app 
+WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
+
 COPY . .
 
-RUN npx prisma generate
+RUN npm exec prisma generate
+RUN npm run build
 
-EXPOSE 3306
+EXPOSE 4323
+
 CMD ["node", "dist/index.js"]
-

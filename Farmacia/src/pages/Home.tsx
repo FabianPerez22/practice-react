@@ -13,14 +13,14 @@ const Home = () => {
     await getAllRegisters(userId)
   };
 
-  const maxLenghts = (text: string) => {
+ /*  const maxLenghts = (text: string) => {
     const maxText = 380;
     let formatedText = text
     if (text.length >= maxText) {
       formatedText = text.slice(0, maxText) + "..."
     }
     return formatedText
-  }
+  } */
 
   useEffect(() => {
     fetchRegisters()
@@ -34,7 +34,7 @@ const Home = () => {
           <div key={med?.id} className="definitions medicamentsDatabase" >
             <button onClick={() => removeMedicament(med?.id) } type="button" className="closeButton buttons">X</button>
             <h3>{med?.name}</h3>
-            <p  >{maxLenghts(med?.description)}</p>
+            <p  >{med?.description}</p>
           </div>
         )}
       </div>

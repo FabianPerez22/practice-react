@@ -1,5 +1,5 @@
-import { prisma } from "../prisma/client.ts";
 import bcrypt from "bcrypt";
+import { prisma } from "../lib/client";
 
 export class AuthService {
   static async validates(email: string) {

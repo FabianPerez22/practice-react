@@ -1,21 +1,23 @@
-import { farmacyModels } from "../models/farmacyModels.js";
-import { medicamentServices } from "../services/farmacy.services.js";
+import { Request, Response } from "express";
+import { farmacyModels } from "../models/farmacyModels";
+import { medicamentServices } from "../services/farmacy.services";
 
 export class farmacyControllers {
-  static async getNames(req, res) {
+  static async getNames(req: Request, res: Response) {
     const { names } = req.params;
     const fetchingNamesData = await farmacyModels.getByName({ names });
-    res.json(fetchingNamesData);
+
+    return res.json(fetchingNamesData);
   }
 
-  static async getAll(req, res) {
+  static async getAll(req: Request, res: Response) {
     const { name } = req.params;
     const fetchingDescriptionData = await farmacyModels.getAllData({ name });
 
-    res.json(fetchingDescriptionData);
+    return res.json(fetchingDescriptionData);
   }
 
-  static async getAllRegisters(req, res) {
+  static async getAllRegisters(req: Request, res: Response) {
     try {
       const { userId } = req.body;
 
@@ -41,7 +43,7 @@ export class farmacyControllers {
     }
   }
 
-  static async addMedicament(req, res) {
+  static async addMedicament(req: Request, res: Response) {
     try {
       const { name, userId } = req.body;
 
@@ -87,12 +89,12 @@ export class farmacyControllers {
     }
   }
 
-  static async removingRegister(req, res) {
+  static async removingRegister(req: Request, res: Response) {
     try {
       const { id } = req.body;
 
       if (!id) return;
-      
+
       const removing = medicamentServices.removing(id);
 
       res.json(removing);

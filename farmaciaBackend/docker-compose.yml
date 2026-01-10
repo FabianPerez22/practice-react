@@ -22,7 +22,7 @@ services:
       mariadb:
         condition: service_healthy
     env_file:
-      - .env
+      - .env.docker
     command: sh -c "npm exec prisma migrate deploy && node dist/index.js"
     ports:
-    - "4326:4323"
+    - "4323:4323"

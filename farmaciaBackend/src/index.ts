@@ -1,7 +1,7 @@
 import express, { json } from "express";
-import { routesFarmacy } from "./routes/farmacyRouter.js";
+import { routesFarmacy } from "./routes/farmacyRouter";
 import cors from "cors";
-import { authRoutes } from "./routes/auth.routes.ts";
+import { authRoutes } from "./routes/auth.routes";
 import cookieParser from "cookie-parser";
 
 const app = express();

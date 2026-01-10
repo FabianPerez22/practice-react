@@ -1,7 +1,7 @@
-import { prisma } from "../prisma/client";
+import { prisma } from "../lib/client";
 
 export class medicamentServices {
-  static async register(name, description, id) {
+  static async register(name: string, description: string, id: number) {
     const registerMedicament = await prisma.medicament.create({
       data: {
         name: name,
@@ -15,7 +15,7 @@ export class medicamentServices {
     return registerMedicament;
   }
 
-  static async getRegisters(userId) {
+  static async getRegisters(userId: number) {
     const registers = await prisma.medicament.findMany({
       where: { userId },
       select: {
@@ -30,7 +30,7 @@ export class medicamentServices {
     return registers;
   }
 
-  static async removing(id) {
+  static async removing(id: number) {
     const remove = await prisma.medicament.delete({
       where: { id: id },
     });
